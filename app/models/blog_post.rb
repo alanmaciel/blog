@@ -4,7 +4,7 @@ class BlogPost < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
-  scope :sorted, -> { order("published_at DESC NULLS LAST").order(updated_at: :desc) }
+  scope :sorted, -> { order("published_at DESC NULLS FIRST").order(updated_at: :desc) }
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :scheduled, -> { where("published_at > ?", Time.current) }
